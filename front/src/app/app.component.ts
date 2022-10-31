@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {EmployeeService} from "./employee.service";
-import {Observable, startWith, Subject, switchMap} from "rxjs";
+import {first, Observable, startWith, Subject, switchMap} from "rxjs";
 import {Employee} from "./model/Employee";
 
 @Component({
@@ -11,16 +11,25 @@ import {Employee} from "./model/Employee";
 export class AppComponent {
 
   employeesSubject$ = new Subject();
-  // employees$: Observable<Employee[]>;
+  employees$: Observable<Employee[]>;
 
   constructor(private employeeService: EmployeeService) {
-    // this.employees$ = this.employeesSubject$.asObservable().pipe(
-    //   startWith(null),
-    //   switchMap(() => this.employeeService.getEmployees())
-    // );
+    this.employees$ = this.employeesSubject$.asObservable().pipe(
+      startWith(null),
+      switchMap(() => this.employeeService.getEmployees())
+    );
+  }
+
+  addEmployee() {
+    const employee = new Employee();
+    employee.firstName = "Kevin";
+    employee.lastName = "Rothenbühler-Alarcon";
+    employee.role = "Developer";
+
+    this.employeeService.addEmployee(employee).pipe(first()).subscribe(() => this.employeesSubject$.next(null));
   }
 
   remove(id: number) {
-    this.employeeService.deleteEmployee(id).subscribe(() => this.employeesSubject$.next(null));
+    this.employeeService.deleteEmployee(id).pipe(first()).subscribe(() => this.employeesSubject$.next(null));
   }
 }
