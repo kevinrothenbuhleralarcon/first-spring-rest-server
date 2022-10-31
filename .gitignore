@@ -1,0 +1,8 @@
+/.angular/cache
+node_modules/
+dist
+bower_components/
+coverage/
+.sass-cache/
+.tmp/
+out-tsc
