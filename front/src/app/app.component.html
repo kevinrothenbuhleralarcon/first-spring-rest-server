@@ -1,11 +1,3 @@
-<ul>
-  <li
-    *ngFor="let employee of employees$ | async"
-    (click)="remove(employee.id)">
-    {{ employee.id }} - {{ employee.firstName }} {{ employee.lastName }} - {{ employee.role }}
-  </li>
-
-  <button (click)="addEmployee()">Add employee</button>
-</ul>
+<employee></employee>
 
 
