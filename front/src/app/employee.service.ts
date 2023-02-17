@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, map, Observable, tap} from "rxjs";
 import {Employee} from "./model/Employee";
 import {EmployeeDTO} from "./model/EmployeeDTO";
+import {Injectable} from "@angular/core";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class EmployeeService {
   employees$ = this.employeesSubject.asObservable();
 
   constructor(private httpClient: HttpClient) {
-    this.updateEmployeeList()
+    this.updateEmployeeList();
   }
 
   addEmployee(employee: Employee): Observable<Employee[]> {

@@ -3,12 +3,12 @@
     <div class="col">
       <div class="list-group">
         <button
-          type="button"
           class="list-group-item list-group-item-action"
           *ngFor="let employee of employees$ | async"
           (click)="remove(employee.id)">
           {{ employee.id }} - {{ employee.firstName }} {{ employee.lastName }} - {{ employee.role }}
         </button>
+        <label class="list-group-item active">({{ (employees$ | async)?.length }}) employees</label>
       </div>
     </div>
 

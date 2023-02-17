@@ -1,7 +1,4 @@
-import { Component } from '@angular/core';
-import {EmployeeService} from "./employee.service";
-import {first, Observable, startWith, Subject, switchMap} from "rxjs";
-import {Employee} from "./model/Employee";
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
