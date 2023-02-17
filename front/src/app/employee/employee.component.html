@@ -1,27 +1,26 @@
-<ul>
-  <li
-    *ngFor="let employee of employees$ | async"
-    (click)="remove(employee.id)">
-    {{ employee.id }} - {{ employee.firstName }} {{ employee.lastName }} - {{ employee.role }}
-  </li>
-
-  <form #f="ngForm" (ngSubmit)="addEmployee()">
-    <div>
-      <label for="firstName">First name:</label>
-      <input type="text" name="firstName" id="firstName" [(ngModel)]="newEmployee.firstName">
+<div class="container m-2">
+  <div class="row">
+    <div class="col">
+      <div class="list-group">
+        <button
+          type="button"
+          class="list-group-item list-group-item-action"
+          *ngFor="let employee of employees$ | async"
+          (click)="remove(employee.id)">
+          {{ employee.id }} - {{ employee.firstName }} {{ employee.lastName }} - {{ employee.role }}
+        </button>
+      </div>
     </div>
 
-    <div>
-      <label for="firstName">Last name:</label>
-      <input type="text" name="lastName" id="lastName" [(ngModel)]="newEmployee.lastName">
+    <div class="col">
+      <form #f="ngForm" (ngSubmit)="addEmployee()">
+          <input type="text" name="firstName" id="firstName" class="form-control mb-3" placeholder="Firstname" [(ngModel)]="newEmployee.firstName">
+          <input type="text" name="lastName" id="lastName"  class="form-control mb-3" placeholder="Lastname"[(ngModel)]="newEmployee.lastName">
+          <input type="text" name="role" id="role" class="form-control mb-3" placeholder="Role" [(ngModel)]="newEmployee.role">
+      </form>
+
+      <button class="btn btn-primary" (click)="addEmployee()">Add employee</button>
     </div>
 
-    <div>
-      <label for="firstName">Role:</label>
-      <input type="text" name="role" id="role" [(ngModel)]="newEmployee.role">
-    </div>
-
-  </form>
-
-  <button (click)="addEmployee()">Add employee</button>
-</ul>
+  </div>
+</div>

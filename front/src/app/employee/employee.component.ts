@@ -1,40 +1,36 @@
-import {Component} from '@angular/core';
-import {EmployeeService} from "../employee.service";
-import {BehaviorSubject, first, Observable, switchMap} from "rxjs";
+import {Component, OnInit} from "@angular/core";
+import {Observable} from "rxjs";
 import {Employee} from "../model/Employee";
+import {EmployeeService} from "../employee.service";
+
 
 @Component({
   selector: 'employee',
   templateUrl: './employee.component.html',
   styleUrls: ['./employee.component.css']
 })
-export class EmployeeComponent {
+export class EmployeeComponent implements OnInit{
 
-  employeesSubject$ = new BehaviorSubject(null);
-  employees$: Observable<Employee[]>;
+  employees$!: Observable<Employee[]>;
   newEmployee = new Employee();
 
-  constructor(private employeeService: EmployeeService) {
-    this.employees$ = this.employeesSubject$.asObservable().pipe(
-      switchMap(() => this.employeeService.getEmployees())
-    );
+  constructor(private employeeService: EmployeeService) {}
+
+  ngOnInit(): void {
+    this.employees$ = this.employeeService.employees();
   }
 
   addEmployee() {
     if (this.validateEmployee()) {
-      this.employeeService.addEmployee(this.newEmployee).pipe(first()).subscribe(() =>  {
-        this.newEmployee = new Employee();
-        this.employeesSubject$.next(null);
-      });
+      this.employeeService.addEmployee(this.newEmployee).subscribe(() => this.newEmployee = new Employee());
     }
   }
 
   remove(id: number) {
-    this.employeeService.deleteEmployee(id).pipe(first()).subscribe(() => this.employeesSubject$.next(null));
+    this.employeeService.deleteEmployee(id).subscribe();
   }
 
   private validateEmployee(): boolean {
     return !(this.newEmployee.firstName === "" || this.newEmployee.lastName === "" || this.newEmployee.role === "");
   }
-
 }
