@@ -1,0 +1,16 @@
+<div class="container m-2">
+  <div class="row">
+    <div class="col">
+      <form #f="ngForm">
+        <input type="text" name="firstName" id="firstName" class="form-control mb-3" placeholder="Firstname"
+               [(ngModel)]="newEmployee.firstName">
+        <input type="text" name="lastName" id="lastName" class="form-control mb-3" placeholder="Lastname"
+               [(ngModel)]="newEmployee.lastName">
+        <input type="text" name="role" id="role" class="form-control mb-3" placeholder="Role"
+               [(ngModel)]="newEmployee.role">
+      </form>
+
+      <button class="btn btn-primary" (click)="addEmployee()">Add employee</button>
+    </div>
+  </div>
+</div>
